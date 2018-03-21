@@ -1,5 +1,6 @@
 <?php
 
+use Bitrix\Main\EventManager;
 use Bitrix\Main\ModuleManager;
 
 
@@ -24,9 +25,15 @@ Class afonya_tst extends CModule {
 
     function DoInstall() {
         ModuleManager::registerModule($this->MODULE_ID);
+        EventManager::getInstance()->registerEventHandler('main', 'OnBeforeProlog', $this->MODULE_ID,
+            'Panel', 'Buttons');
     }
 
     function DoUninstall() {
+        EventManager::getInstance()->unRegisterEventHandler('main','OnBeforeProlog', $this->MODULE_ID,
+            'Panel', 'Buttons');
         ModuleManager::unRegisterModule($this->MODULE_ID);
     }
+
+
 }
