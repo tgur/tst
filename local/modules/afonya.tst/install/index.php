@@ -25,13 +25,17 @@ Class afonya_tst extends CModule {
 
     function DoInstall() {
         ModuleManager::registerModule($this->MODULE_ID);
-        EventManager::getInstance()->registerEventHandler('main', 'OnBeforeProlog', $this->MODULE_ID,
-            'Panel', 'Buttons');
+        EventManager::getInstance()->registerEventHandler('main', 'OnBeforeProlog',
+            $this->MODULE_ID,'\Afonya\Tst\Panel', 'Buttons');
+        EventManager::getInstance()->registerEventHandler('sale', 'OnSaleOrderBeforeSaved',
+            $this->MODULE_ID,'\Afonya\Tst\Order', 'SetPayToZero');
     }
 
     function DoUninstall() {
-        EventManager::getInstance()->unRegisterEventHandler('main','OnBeforeProlog', $this->MODULE_ID,
-            'Panel', 'Buttons');
+        EventManager::getInstance()->unRegisterEventHandler('main','OnBeforeProlog',
+            $this->MODULE_ID,'\Afonya\Tst\Panel', 'Buttons');
+        EventManager::getInstance()->unRegisterEventHandler('sale','OnSaleOrderBeforeSaved',
+            $this->MODULE_ID,'\Afonya\Tst\Order', 'SetPayToZero');
         ModuleManager::unRegisterModule($this->MODULE_ID);
     }
 
