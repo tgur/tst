@@ -29,6 +29,8 @@ Class afonya_tst extends CModule {
             $this->MODULE_ID,'\Afonya\Tst\Panel', 'Buttons');
         EventManager::getInstance()->registerEventHandler('sale', 'OnSaleOrderBeforeSaved',
             $this->MODULE_ID,'\Afonya\Tst\Order', 'SetPayToZero');
+        EventManager::getInstance()->registerEventHandler('sale', 'OnSaleOrderSaved',
+            $this->MODULE_ID,'\Afonya\Tst\Order', 'Export');
     }
 
     function DoUninstall() {
@@ -36,6 +38,8 @@ Class afonya_tst extends CModule {
             $this->MODULE_ID,'\Afonya\Tst\Panel', 'Buttons');
         EventManager::getInstance()->unRegisterEventHandler('sale','OnSaleOrderBeforeSaved',
             $this->MODULE_ID,'\Afonya\Tst\Order', 'SetPayToZero');
+        EventManager::getInstance()->unRegisterEventHandler('sale','OnSaleOrderSaved',
+            $this->MODULE_ID,'\Afonya\Tst\Order', 'Export');
         ModuleManager::unRegisterModule($this->MODULE_ID);
     }
 
